@@ -9,8 +9,10 @@ const Home = () => {
   const filter = useSelector((state) => state.filter);
   const { products, isLoading } = useSelector((state) => state.products);
   const { brands, stock } = filter;
+  console.log(products);
 
-  console.log(brands, stock);
+  console.log(brands);
+  console.log(stock);
   useEffect(() => {
     dispatch(getProducts());
   }, []);
@@ -28,7 +30,23 @@ const Home = () => {
     ));
   }
 
-  if (products.length && (filter.stock || filter.brands.length)) {
+  // if (products.length && (filter.stock || filter.brands.length)) {
+  //   content = products
+  //     .filter((product) => {
+  //       if (stock) {
+  //         return product.status === true;
+  //       }
+  //       return product;
+  //     })
+  //     .filter((product) => {
+  //       if (filter.brands.length) {
+  //         return filter.brands.includes(product.brand);
+  //       }
+  //       return product;
+  //     })
+  //     .map((product) => <ProductCard key={product.model} product={product} />);
+  // }
+  if (products.length && (brands.length || stock)) {
     content = products
       .filter((product) => {
         if (stock) {
@@ -37,8 +55,8 @@ const Home = () => {
         return product;
       })
       .filter((product) => {
-        if (filter.brands.length) {
-          return filter.brands.includes(product.brand);
+        if (brands.length) {
+          return brands.includes(product.brand);
         }
         return product;
       })
